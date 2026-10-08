@@ -16,17 +16,34 @@
 
   <link rel="stylesheet" href="./style.css">
 
-  <!-- Three.js ES Module Import Map for standalone & static server execution -->
+  <!-- Three.js ES Module Import Map (Ultra-fast Local Loading with zero CDN delay) -->
   <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js"
+        "three": "/vendor/three/three.module.js",
+        "three/examples/jsm/controls/OrbitControls.js": "/vendor/three/OrbitControls.js"
       }
     }
   </script>
 </head>
 <body>
+  <!-- LOADING SCREEN OVERLAY -->
+  <div id="sim-loader-overlay" class="sim-loader-overlay">
+    <div class="sim-loader-card">
+      <div class="sim-loader-spinner">
+        <div class="spinner-ring"></div>
+        <i class="fa-solid fa-cube spinner-icon"></i>
+      </div>
+      <div class="sim-loader-text">
+        <h3>Memuat Simulasi 3D</h3>
+        <p id="sim-loader-status">Mempersiapkan lingkungan kota, jalur lalu lintas, & kendaraan...</p>
+      </div>
+      <div class="sim-loader-bar-wrap">
+        <div class="sim-loader-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- 3D WebGL Canvas Container -->
   <div id="canvas-container"></div>
 

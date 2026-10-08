@@ -95,6 +95,17 @@ export class TrafficSimulationApp {
     // Start loop
     this.animate = this.animate.bind(this);
     requestAnimationFrame(this.animate);
+
+    // Dismiss loading overlay with smooth fade out
+    requestAnimationFrame(() => {
+      const loader = document.getElementById('sim-loader-overlay');
+      if (loader) {
+        setTimeout(() => {
+          loader.style.opacity = '0';
+          setTimeout(() => { loader.style.display = 'none'; }, 400);
+        }, 120);
+      }
+    });
   }
 
   initLights() {

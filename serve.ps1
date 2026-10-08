@@ -54,6 +54,9 @@ try {
                 $bytes = [System.IO.File]::ReadAllBytes($filePath)
                 $response.ContentType = $contentType
                 $response.ContentLength64 = $bytes.Length
+                if ($ext -ne ".html") {
+                    $response.AddHeader("Cache-Control", "public, max-age=86400")
+                }
                 if ($request.HttpMethod -ne "HEAD") {
                     $response.OutputStream.Write($bytes, 0, $bytes.Length)
                 }

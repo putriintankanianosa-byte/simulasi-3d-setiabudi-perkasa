@@ -123,15 +123,22 @@ body, html {
   gap: 12px;
   padding: 6px 16px;
   border-radius: 999px;
-  background: rgba(10, 16, 32, 0.85);
+  background: rgba(10, 16, 32, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(56, 189, 248, 0.32);
+  border: 1px solid rgba(56, 189, 248, 0.35);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px rgba(14, 165, 233, 0.15);
   pointer-events: auto;
   align-self: center;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 38;
+  max-width: 95vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.camera-dock-row2::-webkit-scrollbar {
+  display: none;
 }
 
 .camera-dock-row2:hover {
@@ -151,6 +158,8 @@ body, html {
   color: #38bdf8;
   padding-right: 10px;
   border-right: 1px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .cam-dock-label i {
@@ -167,34 +176,52 @@ body, html {
 .camera-dock-row2 .cam-button-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .camera-dock-row2 .cam-btn {
-  display: flex;
+  display: inline-flex !important;
   align-items: center;
+  justify-content: center;
   gap: 7px;
-  padding: 6px 13px;
+  width: auto !important;
+  height: auto !important;
+  min-height: 32px;
+  padding: 6px 14px !important;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px !important;
   color: #cbd5e1;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  line-height: 1;
+}
+
+.camera-dock-row2 .cam-btn span {
+  display: inline-block !important;
+  white-space: nowrap !important;
+  font-size: 12px;
+  font-weight: 600;
+  color: inherit;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .camera-dock-row2 .cam-btn i {
   font-size: 13px;
   color: #94a3b8;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .camera-dock-row2 .cam-btn:hover {
-  background: rgba(14, 165, 233, 0.2);
-  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(14, 165, 233, 0.22);
+  border-color: rgba(56, 189, 248, 0.6);
   color: #ffffff;
   transform: translateY(-1px);
 }
@@ -205,14 +232,14 @@ body, html {
 }
 
 .camera-dock-row2 .cam-btn.active {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.38) 0%, rgba(2, 132, 199, 0.5) 100%);
-  border-color: #38bdf8;
-  color: #ffffff;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.45) 0%, rgba(2, 132, 199, 0.6) 100%) !important;
+  border-color: #38bdf8 !important;
+  color: #ffffff !important;
   box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
 }
 
 .camera-dock-row2 .cam-btn.active i {
-  color: #38bdf8;
+  color: #38bdf8 !important;
   transform: scale(1.12);
 }
 
@@ -425,44 +452,143 @@ body, html {
   flex-shrink: 0;
 }
 
-.cam-button-group {
-  display: flex;
-  gap: 2px;
-}
-
+/* Legacy camera-dock fallback - inherits unified camera styles */
 .cam-btn {
-  background: transparent;
-  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--text-muted);
-  width: 26px;
-  height: 26px;
-  padding: 0;
-  border-radius: 6px;
-  font-size: 11.5px;
-  font-family: var(--font-body);
-  display: flex;
+  min-height: 32px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 7px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  flex-shrink: 0;
-}
-
-.cam-btn i {
-  font-size: 11px;
+  white-space: nowrap;
 }
 
 .cam-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(14, 165, 233, 0.22);
   color: #ffffff;
+  border-color: rgba(56, 189, 248, 0.5);
   transform: translateY(-1px);
 }
 
 .cam-btn.active {
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.45) 0%, rgba(2, 132, 199, 0.6) 100%);
   color: #ffffff;
-  border-color: rgba(56, 189, 248, 0.55);
-  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.45);
+  border-color: #38bdf8;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+}
+
+/* ==========================================================================
+   SIMULATION LOADING OVERLAY
+   ========================================================================== */
+.sim-loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #0b1329 0%, #030712 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
+}
+
+.sim-loader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 20px;
+  padding: 32px 40px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(14, 165, 233, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  max-width: 440px;
+  width: 90%;
+}
+
+.sim-loader-spinner {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.spinner-ring {
+  position: absolute;
+  inset: 0;
+  border: 3px solid rgba(56, 189, 248, 0.15);
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: simSpin 1s linear infinite;
+}
+
+.spinner-icon {
+  font-size: 22px;
+  color: #38bdf8;
+  animation: simIconPulse 2s ease-in-out infinite;
+}
+
+@keyframes simSpin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes simIconPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 8px #38bdf8); }
+}
+
+.sim-loader-text h3 {
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 6px 0;
+}
+
+.sim-loader-text p {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.sim-loader-bar-wrap {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sim-loader-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 40%;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  border-radius: 999px;
+  animation: simLoadingBar 1.6s ease-in-out infinite;
+}
+
+@keyframes simLoadingBar {
+  0% { left: -40%; width: 30%; }
+  50% { left: 30%; width: 50%; }
+  100% { left: 100%; width: 40%; }
 }
 
 /* ==========================================================================
@@ -1385,11 +1511,15 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 @media (max-width: 990px) {
-  .cam-btn span {
-    display: none;
+  .camera-dock-row2 .cam-btn span {
+    display: none !important;
   }
-  .cam-btn {
-    padding: 4px 6px;
+  .camera-dock-row2 .cam-btn {
+    width: 34px !important;
+    height: 34px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    justify-content: center !important;
   }
   .header-actions .time-badge {
     display: none;
